@@ -1,0 +1,5 @@
+1. When should accessor methods be used?
+	Chúng ta cần sử dụng accessor methods khi:
+	+ Khi muốn bảo vệ dữ liệu khỏi việc truy vấn trực tiếp từ bên ngoài, duy trì tính đóng gói
+	+ Khi cần kiểm soát truy nhập: Có thể them vào các logic kiểm tra, xác thực
+

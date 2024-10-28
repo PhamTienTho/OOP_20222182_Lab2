@@ -1,0 +1,153 @@
+-------------file Aims.java:
+import javax.imageio.metadata.IIOMetadataNode;
+
+public class Aims {
+
+	public static void main(String[] args) {
+		Cart anOrder = new Cart();
+		DigitalVideoDisc dics1 = new DigitalVideoDisc("The Lion King", "Animation", 
+				"Roger Allers", 87, 19.95f);
+		anOrder.addDigitalVideoDisc(dics1);
+		DigitalVideoDisc dics2 = new DigitalVideoDisc("Star Wars", "Scinece Fiction", 
+				"George Lucas", 87, 24.95f);
+		anOrder.addDigitalVideoDisc(dics2);
+		DigitalVideoDisc dics3 = new DigitalVideoDisc("Aladin", "Animation", 
+				"George Lucas", 18.99f);
+		anOrder.addDigitalVideoDisc(dics3);
+		
+		System.out.println("Total cost is: ");
+		System.out.println(anOrder.totalCost());
+		System.out.println("So luong: " + anOrder.getQtyOrderd());
+		
+		DigitalVideoDisc disc4 = new DigitalVideoDisc("The Lion King", "Animation", 
+				"Roger Allers", 87, 19.95f);
+		anOrder.removeDigitalVideoDisc(disc4);
+		
+		System.out.println("New total cost is:");
+		System.out.println(anOrder.totalCost());
+		System.out.println("So luong: " + anOrder.getQtyOrderd());
+		
+	}
+
+}
+
+------------file Cart.java:
+
+public class Cart {
+	private static final int MAX_NUMBERS_ORDERED = 20;
+	private static int qtyOrdered = 0;
+	private DigitalVideoDisc itemsOrdered[] = 
+			new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
+	
+	int getQtyOrderd()
+	{
+		return qtyOrdered;
+	}
+	
+	public void addDigitalVideoDisc(DigitalVideoDisc disc) 
+	{
+		if( this.qtyOrdered < MAX_NUMBERS_ORDERED )
+		{
+			itemsOrdered[qtyOrdered] = disc;
+			qtyOrdered++;
+			System.out.println("The disc has been added");
+		}
+		else System.out.println("The cart is almost full");
+	}
+	
+	public void removeDigitalVideoDisc(DigitalVideoDisc disc)
+	{
+		for(int i=0; i < qtyOrdered; i++)
+		{
+			if( itemsOrdered[i].equals(disc) == true)
+			{
+				for(int j=i; j<qtyOrdered-1; j++)
+				{
+					itemsOrdered[j] = itemsOrdered[i];
+				}
+				qtyOrdered--;
+				System.out.println("The disc has been removed");
+				return;
+			}
+		}
+		System.out.println("No disc in the cart found");
+	}
+	
+	public float totalCost() 
+	{
+		float sum = 0;
+		for(int i=0; i<qtyOrdered; i++)
+		{
+			sum += itemsOrdered[i].getCost();
+		}
+		return sum;
+	}
+}
+
+-------------file DigitalVideoDisc.java:
+
+public class DigitalVideoDisc {
+	private String title;
+	private String category;
+	private String director;
+	private int length;
+	private float cost;
+	
+	public String getTitle() {
+		return title;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public String getDirector() {
+		return director;
+	}
+	public int getLength() {
+		return length;
+	}
+	public float getCost() {
+		return cost;
+	}
+	
+	public DigitalVideoDisc(String title) {
+		super();
+		this.title = title;
+	}
+	
+	public DigitalVideoDisc(String title, String category, float cost) {
+		super();
+		this.title = title;
+		this.category = category;
+		this.cost = cost;
+	}
+	
+	public DigitalVideoDisc(String title, String category, String director, float cost) {
+		super();
+		this.title = title;
+		this.category = category;
+		this.director = director;
+		this.cost = cost;
+	}
+	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
+		super();
+		this.title = title;
+		this.category = category;
+		this.director = director;
+		this.length = length;
+		this.cost = cost;
+	}
+	@Override
+	public boolean equals ( Object obj )
+	{
+		DigitalVideoDisc disc = (DigitalVideoDisc) obj; 
+		if(this.category == disc.getCategory() && 
+				this.cost == disc.getCost() && 
+				this.director == disc.getDirector() &&
+				this.length == disc.getLength() && 
+				this.title == disc.getTitle())  		return true;
+		else return false;
+	}
+	
+}
+
+
